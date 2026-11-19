@@ -1149,32 +1149,32 @@ impl Workspace {
             ),
             font_card(s, &page.fonts, ui),
             card(
+                Icon::Dimensions,
+                t!("settings.ui_scale"),
+                None,
+                choice(
+                    "ui-scale",
+                    &theme::SCALES.map(|pct| (pct, Cow::Owned(format!("{pct}%")))),
+                    s.ui_scale,
+                    |st, v: u32| st.ui_scale = v,
+                    ui,
+                ),
+            ),
+            card(
                 Icon::Density,
                 t!("settings.density"),
                 None,
-                div()
-                    .flex()
-                    .items_center()
-                    .gap(theme::s_8())
-                    .child(choice(
-                        "ui-scale",
-                        &theme::SCALES.map(|pct| (pct, Cow::Owned(format!("{pct}%")))),
-                        s.ui_scale,
-                        |st, v: u32| st.ui_scale = v,
-                        ui,
-                    ))
-                    .child(choice(
-                        "density",
-                        &[
-                            (Density::Compact, t!("density.compact")),
-                            (Density::Standard, t!("density.standard")),
-                            (Density::Comfortable, t!("density.comfortable")),
-                        ],
-                        s.density,
-                        |st, v| st.density = v,
-                        ui,
-                    ))
-                    .into_any_element(),
+                choice(
+                    "density",
+                    &[
+                        (Density::Compact, t!("density.compact")),
+                        (Density::Standard, t!("density.standard")),
+                        (Density::Comfortable, t!("density.comfortable")),
+                    ],
+                    s.density,
+                    |st, v| st.density = v,
+                    ui,
+                ),
             ),
             tabs_card(s, ui),
             card(
